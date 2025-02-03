@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="SCWM.WI_INTEGRATION_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="Subscription" sap:semantics="subscriptions" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="32" sap:label="Sub. ID" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="user" Type="Edm.String" MaxLength="12" m:FC_TargetPath="SyndicationAuthorName" m:FC_KeepInContent="false" sap:label="User Name" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="updated" Type="Edm.DateTime" Precision="0" m:FC_TargetPath="SyndicationUpdated" m:FC_KeepInContent="false" sap:label="Time Stamp" sap:creatable="false" sap:filterable="false"/>
+                <Property Name="title" Type="Edm.String" MaxLength="255" m:FC_TargetPath="SyndicationTitle" m:FC_KeepInContent="false" sap:label="Title" sap:filterable="false"/>
+                <Property Name="deliveryAddress" Type="Edm.String" sap:label="Delivery Address" sap:filterable="false"/>
+                <Property Name="persistNotifications" Type="Edm.Boolean" sap:label="Persist Notification" sap:filterable="false"/>
+                <Property Name="collection" Type="Edm.String" MaxLength="40" sap:label="Collection" sap:filterable="false"/>
+                <Property Name="filter" Type="Edm.String" sap:label="Filter" sap:filterable="false"/>
+                <Property Name="select" Type="Edm.String" MaxLength="255" sap:label="Select" sap:filterable="false"/>
+                <Property Name="changeType" Type="Edm.String" MaxLength="30" sap:label="Change Type"/>
+            </EntityType>
+            <EntityType Name="Notification" sap:semantics="notifications" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="32" sap:label="Notification ID"/>
+                <Property Name="collection" Type="Edm.String" MaxLength="40" sap:label="Collection"/>
+                <Property Name="title" Type="Edm.String" m:FC_TargetPath="SyndicationTitle" m:FC_KeepInContent="false" sap:label="Notif. Text"/>
+                <Property Name="updated" Type="Edm.DateTime" Precision="0" m:FC_TargetPath="SyndicationUpdated" m:FC_KeepInContent="false" sap:label="Time Stamp"/>
+                <Property Name="changeType" Type="Edm.String" MaxLength="30" sap:label="Change Type"/>
+                <Property Name="entriesOfInterest" Type="Edm.Int32" sap:label="No. of Entries"/>
+                <Property Name="recipient" Type="Edm.String" MaxLength="112" sap:label="Recipient" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseResourceType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="ExecutingResourceType"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Resource Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RsceTypeVelocityValue" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="5" sap:unicode="false" sap:unit="RsceTypeVelocityUoM" sap:label="Res. Type Vel." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RsceTypeVelocityVerticalValue" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="5" sap:unicode="false" sap:unit="RsceTypeVelocityUoM" sap:label="Velocity Z" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RsceTypeVelocityUoM" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Unit of Measure" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="ETTechnicalInfo" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Client"/>
+                    <PropertyRef Name="VersionId"/>
+                </Key>
+                <Property Name="Client" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="0" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SystemId" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="SAP System ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Host" Type="Edm.String" Nullable="false" MaxLength="13" sap:unicode="false" sap:label="AS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VersionId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Release" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="FeatureSet" Relationship="SCWM.WI_INTEGRATION_SRV.TechnicalInfoToFeature" FromRole="FromRole_TechnicalInfoToFeature" ToRole="ToRole_TechnicalInfoToFeature"/>
+            </EntityType>
+            <EntityType Name="ETFeature" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SystemInfo"/>
+                    <PropertyRef Name="FeatureVersionId"/>
+                    <PropertyRef Name="FeatureId"/>
+                </Key>
+                <Property Name="SystemInfo" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="System" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FeatureVersionId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Release" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FeatureId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Feature" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseOrderExecutionPlan" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseOrder"/>
+                    <PropertyRef Name="WarehouseResource"/>
+                    <PropertyRef Name="WhseOrderExecutionSequence"/>
+                    <PropertyRef Name="WhseOrdExecutionPlanNumber"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseResource" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Resource" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderExecutionSequence" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="WO Exec. Seq." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderQueue" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Queue" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderLatestStartDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdExecutionPlanNumber" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="WO Assignment" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CutOffWarehouseOrder" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceGroup" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Resource Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseOrder" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseOrder"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderStatus" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="WO Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderQueue" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Queue" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdOperationType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Action" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderLatestStartDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Latest St. Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdCrtnUTDateTime_E" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderLastChgUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Last Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderConfUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Confirmed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Resource Type" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="LastFetchedAtDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Date and Time" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ResourceCutOffInfo" Type="Edm.String" MaxLength="10000" sap:unicode="false" sap:label="Max. No. of WOs" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WarehouseOrderPlannedDuration" Type="Edm.Decimal" Precision="15" Scale="3" sap:unicode="false" sap:label="Plnd Exec. Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceGroup" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Resource Group" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ActivityArea" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Activity Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Wave" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Wave" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdInformationReadMode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Warehouse Order Use" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <NavigationProperty Name="WarehouseTaskSet" Relationship="SCWM.WI_INTEGRATION_SRV.WarehouseOrderToWarehouseTask" FromRole="FromRole_WarehouseOrderToWarehouseTask" ToRole="ToRole_WarehouseOrderToWarehouseTask"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseTask" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseOrder"/>
+                    <PropertyRef Name="WarehouseTask"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTask" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Warehouse Task" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceStorageBin" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Source Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationStorageBin" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Destination Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseTaskSortingSequence" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Sort Sequence" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseProcessCategory" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Proc. Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseProcessType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Whse Proc. Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Priority" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Priority" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTaskStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="WT Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StockRemovalHomogenousHU" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Rem. Whole HU" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceHandlingUnit" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source HU" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationHandlingUnit" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Destination HU" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="HandlingUnitType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="HU Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsHUWarehouseTask" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="HU Whse Task" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseResource" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseResource"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseResource" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Resource" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceType" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Resource Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceGroup" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Resource Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderQueue" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Queue" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResourceCurrentStorageBin" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Storage Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResourceExpectedLastStorageBin" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Last Dest. Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResourceExpectedLastWhseOrd" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Last WO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResourceInformationReadMode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Resource Usage" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ResourceCutOffInfo" Type="Edm.String" MaxLength="10000" sap:unicode="false" sap:label="Max. No. of WOs" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="ETStorageBin" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="StorageBin"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StorageBin" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Storage Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="XCoordinate" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="3" sap:unicode="false" sap:label="X Coordinate" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YCoordinate" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="3" sap:unicode="false" sap:label="Y Coordinate" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ZCoordinate" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="3" sap:unicode="false" sap:label="Z Coordinate" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Angle" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="1" sap:unicode="false" sap:label="Bin Angle" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseOrderConfirmed" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseOrder"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderStatus" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="WO Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrderQueue" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Queue" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdOperationType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Action" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderLatestStartDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Latest St. Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdCrtnUTDateTime_E" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderLastChgUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Last Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderConfUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Confirmed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrderStartUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Started On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResource" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Resource" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseOrdFromDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Selected From" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WhseOrdToDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Selected To" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WarehouseOrderPlannedDuration" Type="Edm.Decimal" Precision="15" Scale="3" sap:unicode="false" sap:label="Plnd Exec. Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExecutingResourceType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Resource Type" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="WhseOrdInformationReadMode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Warehouse Order Use" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ActivityArea" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Activity Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Wave" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Wave" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ConfirmedWarehouseTaskSet" Relationship="SCWM.WI_INTEGRATION_SRV.ConfirmedWhseOrdToWarehouseTask" FromRole="FromRole_ConfirmedWhseOrdToWarehouseTask" ToRole="ToRole_ConfirmedWhseOrdToWarehouseTask"/>
+            </EntityType>
+            <EntityType Name="ETWarehouseTaskConfirmed" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Warehouse"/>
+                    <PropertyRef Name="WarehouseOrder"/>
+                    <PropertyRef Name="WarehouseTask"/>
+                </Key>
+                <Property Name="Warehouse" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Warehouse No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Warehouse Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTask" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Warehouse Task" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceStorageBin" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Source Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationStorageBin" Type="Edm.String" MaxLength="18" sap:unicode="false" sap:label="Destination Bin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WhseTaskSortingSequence" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Sort Sequence" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseProcessCategory" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Proc. Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTaskConfUTCDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="WO Confirmed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTaskConf" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="WT Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseProcessType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Whse Proc. Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExceptionCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Exception Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Priority" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Priority" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WarehouseTaskStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="WT Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceHandlingUnit" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source HU" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationHandlingUnit" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Destination HU" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="HandlingUnitType" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="HU Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsHUWarehouseTask" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="HU Whse Task" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ETResponseMsg" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Failed"/>
+                    <PropertyRef Name="Msg"/>
+                </Key>
+                <Property Name="Failed" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Boolean Variable (X=True, -=False, Space=Unknown)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Msg" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Return message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="WarehouseOrderToWarehouseTask" sap:content-version="1">
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETWarehouseOrder" Multiplicity="1" Role="FromRole_WarehouseOrderToWarehouseTask"/>
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETWarehouseTask" Multiplicity="*" Role="ToRole_WarehouseOrderToWarehouseTask"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_WarehouseOrderToWarehouseTask">
+                        <PropertyRef Name="Warehouse"/>
+                        <PropertyRef Name="WarehouseOrder"/>
+                    </Principal>
+                    <Dependent Role="ToRole_WarehouseOrderToWarehouseTask">
+                        <PropertyRef Name="WarehouseTask"/>
+                        <PropertyRef Name="WarehouseTask"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ConfirmedWhseOrdToWarehouseTask" sap:content-version="1">
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETWarehouseOrderConfirmed" Multiplicity="1" Role="FromRole_ConfirmedWhseOrdToWarehouseTask"/>
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETWarehouseTaskConfirmed" Multiplicity="*" Role="ToRole_ConfirmedWhseOrdToWarehouseTask"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ConfirmedWhseOrdToWarehouseTask">
+                        <PropertyRef Name="WarehouseOrder"/>
+                        <PropertyRef Name="Warehouse"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ConfirmedWhseOrdToWarehouseTask">
+                        <PropertyRef Name="WarehouseTask"/>
+                        <PropertyRef Name="WarehouseTask"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="TechnicalInfoToFeature" sap:content-version="1">
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETTechnicalInfo" Multiplicity="1" Role="FromRole_TechnicalInfoToFeature"/>
+                <End Type="SCWM.WI_INTEGRATION_SRV.ETFeature" Multiplicity="*" Role="ToRole_TechnicalInfoToFeature"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_TechnicalInfoToFeature">
+                        <PropertyRef Name="Client"/>
+                        <PropertyRef Name="VersionId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_TechnicalInfoToFeature">
+                        <PropertyRef Name="SystemInfo"/>
+                        <PropertyRef Name="FeatureVersionId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="SCWM_WI_INTEGRATION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SubscriptionCollection" EntityType="SCWM.WI_INTEGRATION_SRV.Subscription" sap:content-version="1"/>
+                <EntitySet Name="NotificationCollection" EntityType="SCWM.WI_INTEGRATION_SRV.Notification" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="WarehouseResourceTypeSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseResourceType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="TechnicalInfoSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETTechnicalInfo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="FeatureSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETFeature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="WarehouseOrderExecutionPlanSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseOrderExecutionPlan" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="WarehouseOrderSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseOrder" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="WarehouseTaskSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseTask" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="WarehouseResourceSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseResource" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="StorageBinSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETStorageBin" sap:searchable="true" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="ConfirmedWarehouseOrderSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseOrderConfirmed" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ConfirmedWarehouseTaskSet" EntityType="SCWM.WI_INTEGRATION_SRV.ETWarehouseTaskConfirmed" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ETResponseMsgCollection" EntityType="SCWM.WI_INTEGRATION_SRV.ETResponseMsg" sap:content-version="1"/>
+                <AssociationSet Name="TechnicalInfoToFeature_AssocSet" Association="SCWM.WI_INTEGRATION_SRV.TechnicalInfoToFeature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="TechnicalInfoSet" Role="FromRole_TechnicalInfoToFeature"/>
+                    <End EntitySet="FeatureSet" Role="ToRole_TechnicalInfoToFeature"/>
+                </AssociationSet>
+                <AssociationSet Name="ConfirmedWO2WTSet" Association="SCWM.WI_INTEGRATION_SRV.ConfirmedWhseOrdToWarehouseTask" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ConfirmedWarehouseOrderSet" Role="FromRole_ConfirmedWhseOrdToWarehouseTask"/>
+                    <End EntitySet="ConfirmedWarehouseTaskSet" Role="ToRole_ConfirmedWhseOrdToWarehouseTask"/>
+                </AssociationSet>
+                <AssociationSet Name="WO2WTSet" Association="SCWM.WI_INTEGRATION_SRV.WarehouseOrderToWarehouseTask" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WarehouseOrderSet" Role="FromRole_WarehouseOrderToWarehouseTask"/>
+                    <End EntitySet="WarehouseTaskSet" Role="ToRole_WarehouseOrderToWarehouseTask"/>
+                </AssociationSet>
+                <FunctionImport Name="ValidWhNum" ReturnType="SCWM.WI_INTEGRATION_SRV.ETResponseMsg" EntitySet="ETResponseMsgCollection" m:HttpMethod="POST">
+                    <Parameter Name="Warehouse" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+                <FunctionImport Name="ResetExecutionPlan" ReturnType="SCWM.WI_INTEGRATION_SRV.ETResponseMsg" EntitySet="ETResponseMsgCollection" m:HttpMethod="POST">
+                    <Parameter Name="Warehouse" Type="Edm.String" Mode="In" MaxLength="4"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://AF5DDPD21DA00.DIMENSIONDATA.COM:44300/sap/opu/odata/scwm/WI_INTEGRATION_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://AF5DDPD21DA00.DIMENSIONDATA.COM:44300/sap/opu/odata/scwm/WI_INTEGRATION_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
