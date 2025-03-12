@@ -1,2 +1,22 @@
-sap.ui.define(["sap/ui/core/UIComponent","sap/ui/Device","zchatbot/model/models"],function(t,e,a){"use strict";return t.extend("zchatbot.Component",{metadata:{manifest:"json"},init:function(){t.prototype.init.apply(this,arguments);var e=new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/scwm/WI_INTEGRATION_SRV/");this.setModel(e);var l=document.createElement("script");l.src="https://cdn.cai.tools.sap/webclient/bootstrap.js";l.setAttribute("data-channel-id","bcacaa43-3e97-4928-bcce-abbf68731012");l.setAttribute("data-token","7de4d5a0cb5b6a3cc0fb0c65ca48d256");l.setAttribute("data-expander-type","CAI");l.setAttribute("data-expander-preferences","JTdCJTIyYWNjZW50Q29sb3IlMjIlM0ElMjIlMjMwZjAwYTAlMjIlMkMlMjJiYWNrZ3JvdW5kQ29sb3IlMjIlM0ElMjIlMjNjN2NjZjElMjIlMkMlMjJjb21wbGVtZW50YXJ5Q29sb3IlMjIlM0ElMjIlMjNmZWZlZmUlMjIlMkMlMjJleHBhbmRlckxvZ28lMjIlM0ElMjJodHRwcyUzQSUyRiUyRmxvZ29kaXguY29tJTJGbG9nbyUyRjIxNDE2NTcuanBnJTIyJTJDJTIyZXhwYW5kZXJUaXRsZSUyMiUzQSUyMiUyMiUyQyUyMm9uYm9hcmRpbmdNZXNzYWdlJTIyJTNBJTIySGVyZSUyMHRvJTIwQXNzaXN0JTIyJTJDJTIyb3BlbmluZ1R5cGUlMjIlM0ElMjJuZXZlciUyMiUyQyUyMnRoZW1lJTIyJTNBJTIyQ1VTVE9NJTIyJTdE");l.id="cai-webclient-custom";document.head.appendChild(l);this.getRouter().initialize();this.setModel(a.createDeviceModel(),"device")}})});
+sap.ui.define([
+  "sap/ui/core/UIComponent",
+  "sap/ui/Device",
+  "zchatbot/model/models"
+],
+              function(t,e,a){"use strict";
+              return t.extend("zchatbot.Component",{metadata:{manifest:"json"},
+              init:function(){t.prototype.init.apply(this,arguments);
+              var e=new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/scwm/WI_INTEGRATION_SRV/");
+              this.setModel(e);
+              var l=document.createElement("script");
+              l.src="https://cdn.cai.tools.sap/webclient/bootstrap.js";
+              l.setAttribute("data-channel-id","bcacaa43-3e97-4928-bcce-abbf68731012");
+              l.setAttribute("data-token","7de4d5a0cb5b6a3cc0fb0c65ca48d256");
+              l.setAttribute("data-expander-type","CAI");
+              l.setAttribute("data-expander-preferences",
+              "JTdCJTIyYWNjZW50Q29sb3IlMjIlM0ElMjIlMjMwZjAwYTAlMjIlMkMlMjJiYWNrZ3JvdW5kQ29sb3IlMjIlM0ElMjIlMjNjN2NjZjElMjIlMkMlMjJjb21wbGVtZW50YXJ5Q29sb3IlMjIlM0ElMjIlMjNmZWZlZmUlMjIlMkMlMjJleHBhbmRlckxvZ28lMjIlM0ElMjJodHRwcyUzQSUyRiUyRmxvZ29kaXguY29tJTJGbG9nbyUyRjIxNDE2NTcuanBnJTIyJTJDJTIyZXhwYW5kZXJUaXRsZSUyMiUzQSUyMiUyMiUyQyUyMm9uYm9hcmRpbmdNZXNzYWdlJTIyJTNBJTIySGVyZSUyMHRvJTIwQXNzaXN0JTIyJTJDJTIyb3BlbmluZ1R5cGUlMjIlM0ElMjJuZXZlciUyMiUyQyUyMnRoZW1lJTIyJTNBJTIyQ1VTVE9NJTIyJTdE");
+                              l.id="cai-webclient-custom";
+                              document.head.appendChild(l);
+                              this.getRouter().initialize();
+                              this.setModel(a.createDeviceModel(),"device")}})});
 //# sourceMappingURL=Component.js.map
